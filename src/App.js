@@ -25,10 +25,35 @@ class App extends React.Component {
   }
   // design `App` to be the parent component of your application.
   // this component is going to take care of state, and any change handlers you need to work with your state
+
+  addTask = (e, task) => {
+    e.preventDefault();
+
+    const newTask = {
+      task: task,
+      id: Date.now(),
+      completed: false
+    };
+
+    this.setState({
+      toDoTasks: [...this.state.toDoTasks, newTask]
+    });
+  };
+
+
+
   render() {
     return (
       <div>
-        <h2>Welcome to your Todo App!</h2>
+        <div>
+          <h2>Welcome to your Todo App!</h2>
+          <TodoForm addTask={this.addTask} />
+        </div>
+        <TodoList
+          toDoTasks={this.state.toDoTasks}
+          toggleTask={this.toggleTask}
+          clearCompleted={this.clearCompleted}
+        />
       </div>
     );
   }
