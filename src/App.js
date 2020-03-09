@@ -1,6 +1,6 @@
 import React from 'react';
-import TodoList from './components/TodoComponents/TodoList';
-import TodoForm from './components/TodoComponents/TodoForm';
+import TodoList from './components/TodoList';
+import TodoForm from './components/TodoForm';
 
 const toDoTasks = [
   {
@@ -37,6 +37,30 @@ class App extends React.Component {
 
     this.setState({
       toDoTasks: [...this.state.toDoTasks, newTask]
+    });
+  };
+
+  toggleTask = taskId => {
+
+    this.setState({
+      toDoTasks: this.state.toDoTasks.map(task => {
+
+        if (taskId === task.id) {
+          return {
+            ...task,
+            completed: !task.completed
+          };
+        }
+
+        return task;
+      })
+    });
+  };
+
+  clearCompleted = e => {
+    e.preventDefault();
+    this.setState({
+      toDoTasks: this.state.toDoTasks.filter(task => task.completed === false)
     });
   };
 
